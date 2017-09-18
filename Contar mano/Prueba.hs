@@ -13,5 +13,5 @@ valMano::[(Carta)]->int
 valMano [ ] = 0
 valMano ((a):xs)= valCarta a + valMano(xs)
 
-valCarta::Carta->int
-valCarta a= fst a   
+valCarta::Carta->
+valCarta show (a) =  A
