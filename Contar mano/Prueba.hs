@@ -11,7 +11,7 @@ data Carta = {valor::Valor pinta::Pinta} deriving (Eq, Show)
 
 valMano::[(Carta)]->int
 valMano [ ] = 0
-valMano ((a):xs)= valCarta a + valMano(xs)
+valMano (a:xs)= valCarta a + valMano(xs)
 
-valCarta::Carta->
+valCarta::Carta-> Int
 valCarta show (a) =  A
