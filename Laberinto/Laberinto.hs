@@ -7,18 +7,18 @@ labe::[[Char]]
 labe=[
     ['1','1','1','1','1','1','1','1','1','1'],
     ['1','1','0','0','0','1','1','1','1','1'],
-    ['1','1','0','1','0','1','1','1','1','1'],
-    ['1','1','0','1','0','1','1','1','1','1'],
-    ['1','1','0','1','0','0','0','0','F','1'],
+    ['1','1','0','1','0','f','0','0','0','1'],
+    ['1','1','0','1','0','1','1','1','0','1'],
+    ['1','1','0','1','0','0','0','0','0','1'],
     ['1','1','0','1','1','1','1','1','1','1'],
     ['1','1','0','1','1','1','1','1','1','1'],
-    ['1','1','x','1','1','1','1','1','1','1'],
+    ['1','1','x','1','0','1','1','1','1','1'],
     ['1','1','1','1','1','1','1','1','1','1'],
     ['1','1','1','1','1','1','1','1','1','1']]
     
     
 matxy :: (Int,Int)->Char
-matxy (fila,columna) =  (labe!!fila)!!columna
+matxy a (fila,columna) =  (a!!fila)!!columna
 
 movIzq::(Int,Int)->(Int,Int)
 movIzq (a,b)=if a>0 then (a-1,b)
@@ -35,6 +35,10 @@ movAbj (a,b)=if b<9 then (a,b+1)
              else (a,b)
 modulo::Int->Int
 modulo a= mod a 10
+
+encontarInicio::
+
+
 esInicio :: [[Char]]->(Int,Int)->(Int,Int)
 esInicio a (fila,col) = if (matxy (fila,col) == 'x') then (fila, col)
                         else if(fila<9 && col<9)
@@ -42,4 +46,8 @@ esInicio a (fila,col) = if (matxy (fila,col) == 'x') then (fila, col)
                         else if  (col==9)
                             then esInicio a (fila+1 ,0)
                         else (10,10)
-vacios::[[Char]]->[(Int,Int)]
+juego::[[Char]]->(Int,Int)->[(Int,Int)]
+juego lab (a,b)=	if (matxy lab a b) == 'f' then (a,b)
+					else if matxy () 
+
+
