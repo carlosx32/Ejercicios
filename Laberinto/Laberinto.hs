@@ -5,28 +5,41 @@ module Laberinto where
 
 labe::[[Char]]
 labe=[
-    ['x','x','x','x','x','x','x','x','x','x'],
-    ['x','1','1','1','1','1','2','x','x','x'],
-    ['x','1','x','x','x','x','x','x','x','x'],
-    ['x','1','1','x','x','x','x','x','x','x'],
-    ['x','x','1','x','x','x','x','x','x','x'],
-    ['x','x','1','x','x','x','x','x','x','x'],
-    ['x','1','1','x','x','x','x','x','x','x'],
-    ['x','1','x','x','x','x','x','x','x','x'],
-    ['x','0','x','x','x','x','x','x','x','x'],
-    ['x','x','x','x','x','x','x','x','x','x']]
-   
-Cordenadas::[[Char]]
-	
-
-Imprimir::[[Char]]
-	
-buscarx::[[Char]]->Char->Int->Int
-buscarx a b c =if(elem b (head a) ) then c else buscarx a b c+1
-
-buscary::[[Char]]->Char->Int->Int
-buscary a b c =if(elem b a) then c else buscarx a b c+1
-
+    ['1','1','1','1','1','1','1','1','1','1'],
+    ['1','1','0','0','0','1','1','1','1','1'],
+    ['1','1','0','1','0','1','1','1','1','1'],
+    ['1','1','0','1','0','1','1','1','1','1'],
+    ['1','1','0','1','0','0','0','0','F','1'],
+    ['1','1','0','1','1','1','1','1','1','1'],
+    ['1','1','0','1','1','1','1','1','1','1'],
+    ['1','1','x','1','1','1','1','1','1','1'],
+    ['1','1','1','1','1','1','1','1','1','1'],
+    ['1','1','1','1','1','1','1','1','1','1']]
     
-encontrarInicio::[[Char]]->(Int,Int)
-encontrarInicio a= ( buscarx a '0' 0  , 1)
+    
+matxy :: (Int,Int)->Char
+matxy (fila,columna) =  (labe!!fila)!!columna
+
+movIzq::(Int,Int)->(Int,Int)
+movIzq (a,b)=if a>0 then (a-1,b)
+             else (a,b)
+
+movDer::(Int,Int)->(Int,Int)
+movDer (a,b)=if a<9 then (a+1,b)
+             else (a,b)
+movArr::(Int,Int)->(Int,Int)
+movArr (a,b)=if b>0 then (a,b-1)
+             else (a,b)
+movAbj::(Int,Int)->(Int,Int)
+movAbj (a,b)=if b<9 then (a,b+1)
+             else (a,b)
+modulo::Int->Int
+modulo a= mod a 10
+esInicio :: [[Char]]->(Int,Int)->(Int,Int)
+esInicio a (fila,col) = if (matxy (fila,col) == 'x') then (fila, col)
+                        else if(fila<9 && col<9)
+                            then esInicio a (fila, (col+1) )
+                        else if  (col==9)
+                            then esInicio a (fila+1 ,0)
+                        else (10,10)
+vacios::[[Char]]->[(Int,Int)]
