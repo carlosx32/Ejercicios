@@ -19,6 +19,9 @@ esHombre('A1').
 esHombre('A3').
 esHombre('P1').
 esHombre('H1').
+esHombre('H2').
+esHombre('otrotipo').
+esHombre('P1.2').
 
 esMujer('T2').
 esMujer('T4').
@@ -35,6 +38,8 @@ esMujer('B8').
 esMujer('A2').
 esMujer('A4').
 esMujer('P2').
+esMujer('H3').
+
 %agregamos los padres y madres
 padreDe('B1','T1').
 padreDe('B1','T2').
@@ -68,15 +73,27 @@ padreDe('H1','P1').
 padreDe('H1','P2').
 padreDe('H2','P1').
 padreDe('H2','P2').
+padreDe('P1.2','A1').
+padreDe('P1.2','A3').
 
-
+padreDe('H3','P1.2').
+padreDe('H3','otrotipo').
 
 %escribimos las reglas
 hijoDe(A,B):- padreDe(B,A).
 abueloDe(A,B):- padreDe(A,C),hijoDe(B,C).
 bisAbueloDe(A,B):- abueloDe(A,C), hijoDe(B,C).
 bisNietoDe(A,B):- bisAbueloDe(B,A).
-casadoCon(A,B):- padreDe(C,A), padreDe(C,B).
+casadoCon(A,B):- padreDe(C,A), padreDe(C,B), B\==A.
 hermanoDe(A,B):- padreDe(A,C),padreDe(B,C), B\==A.
+cuñadode(A,B) :- casadoCon(A,C), hermanoDe(B,C), B\==A.
+cuñadode(A,B) :- casadoCon(B,C), hermanoDe(C,A),B\==A.
+tiode(A,B):- padreDe(A,C),hermanoDe(C,B).
+primoDe(A,B):-padreDe(A,C),padreDe(B,D),hermanoDe(C,D).
+% adoptado(A):-esMujer(B), esMujer(C)
+% ,casadoCon(B,C),hijoDe(A,C),hijoDe(A,B).
+adoptado(A):-esHombre(B), esHombre(C) ,casadoCon(B,C),hijoDe(C,A),hijoDe(B,A), B\==C.
+feliz(A) :- casadoCon(A, _).
 
-
+%TodosPapas:-padreDe(_,X),esHombre(X).
+%todasMamas:-padreDe(_,X),esMujer(X).
